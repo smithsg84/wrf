@@ -35,7 +35,7 @@ export FC=$(which ifort)
 
 export NETCDF=/usr/gapps/thcs/apps/toss_3_x86_64_ib/netcdf/4.6.1
 export NCDIR=${NETCDF}
-
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NETCDF/lib
 
 #-----------------------------------------------------------------------------
 # Build ParFlow
@@ -87,6 +87,7 @@ export FC=$(which ifort)
 
 export NETCDF=/usr/gapps/thcs/apps/toss_3_x86_64_ib/netcdf/4.6.1
 export NCDIR=${NETCDF}
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NETCDF/lib
 
 #-----------------------------------------------------------------------------
 # Build NetCDF C interface (only needs to be done once)
