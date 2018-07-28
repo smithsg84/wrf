@@ -120,6 +120,9 @@ else
   else
        if($WRF_HYDRO == 1) then
           setenv LIB_WRF_HYDRO "-L../hydro/lib -lHYDRO"
+	  if($WRF_PARFLOW) then
+	     setenv LIB_WRF_HYDRO "$LIB_WRF_HYDRO -L$PARFLOW_DIR/lib -lpfsimulator -lamps"
+	  fi
        else
           setenv LIB_WRF_HYDRO ""
        endif

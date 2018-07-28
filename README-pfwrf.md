@@ -13,7 +13,7 @@ The WRF-Hydro repository version was copied into the WRF repository at wrf/hydro
 
 The pfwrf branch was used to for the PF integration work.
 
-## Building WRF-HYDRO
+## Building PF-WRF-Hydro
 
 ### LLNL TOS 3 systems from PFWRF repository
 
@@ -36,9 +36,26 @@ export FC=$(which ifort)
 export NETCDF=/usr/gapps/thcs/apps/toss_3_x86_64_ib/netcdf/4.6.1
 export NCDIR=${NETCDF}
 
+
+#-----------------------------------------------------------------------------
+# Build ParFlow
+#-----------------------------------------------------------------------------
+
+pushd pf-build
+bin/pfclone
+
+make llnl
+make
+make install
+
+#-----------------------------------------------------------------------------
+# Build PF-WRF-Hydro
+#-----------------------------------------------------------------------------
+
+# This uses some build scripts developed for LLNL.
 git clone git@github.com:smithsg84/wrf.git
 
-source wrf/hydro/template/setEnvar.sh
+source wrf/hydro/template/pfwrf-setEnvar.sh
 
 cd wrf
 
