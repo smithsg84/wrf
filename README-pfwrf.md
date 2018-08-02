@@ -15,7 +15,59 @@ The pfwrf branch was used to for the PF integration work.
 
 ## Building PF-WRF-Hydro
 
-### LLNL TOS 3 systems from PFWRF repository
+### NERSC Cori system from PF-WRF-HYDRO repository
+
+```bash
+#-----------------------------------------------------------------------------
+# This gets environment that will build PF and WRF
+#-----------------------------------------------------------------------------
+git clone git@github.com:smithsg84/pf-build.git
+
+pushd pf-build
+source bin/pfsetenv.sh
+popd
+
+# Uses Cray install of NetCDF
+export NETCDF=${NETCDF_DIR}
+export NCDIR=${NETCDF_DIR}
+
+#-----------------------------------------------------------------------------
+# Build ParFlow
+#-----------------------------------------------------------------------------
+
+pushd pf-build
+bin/pfclone
+
+make cori
+make
+make install
+
+popd
+
+#-----------------------------------------------------------------------------
+# Build PF-WRF-Hydro
+#-----------------------------------------------------------------------------
+
+# This uses some build scripts developed for LLNL.
+git clone git@github.com:smithsg84/wrf.git
+
+source wrf/hydro/template/pfwrf-setEnvar.sh
+
+cd wrf
+
+./configure
+
+#Select the dmpar option for your compiler (50)
+#Select option 1 - basic nesting
+
+# Need to patch name of fortran compiler in Hydro
+
+perl -pi.bak -e 's/mpif90/ftn/g' hydro/macros
+
+./compile em_real >& zz.compile
+```
+
+### LLNL TOS 3 systems from PF-WRF-HYDRO repository
 
 Requires needs NetCDF to be built.
 
@@ -47,6 +99,8 @@ bin/pfclone
 make llnl
 make
 make install
+
+popd
 
 #-----------------------------------------------------------------------------
 # Build PF-WRF-Hydro
