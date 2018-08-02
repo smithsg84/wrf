@@ -38,7 +38,7 @@ export NCDIR=${NETCDF_DIR}
 pushd pf-build
 bin/pfclone
 
-make cori
+make cori-wrf
 make
 make install
 
